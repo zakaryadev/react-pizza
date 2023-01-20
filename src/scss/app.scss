@@ -45,10 +45,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media (max-width: 1290px) {
+    @media (max-width: 1260px) {
       align-items: center;
       .categories {
-        max-width: 70%;
+        max-width: 80%;
         overflow: hidden;
         ul {
           flex-direction: row;
@@ -57,10 +57,18 @@ body {
         }
       }
       .sort  {
-        width: 30%;
         b {
           display: none;
         }
+      }
+    }
+
+    @media (max-width: 820px) {
+      .categories {
+        width: 60%;
+      }
+      .sort  {
+        width: 30%;
       }
     }
 
