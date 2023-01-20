@@ -3,9 +3,10 @@ import ContentLoader from "react-content-loader";
 
 const PizzaSkeleton = () => (
   <ContentLoader
+    className="pizza-block"
     speed={0.8}
     width={280}
-    height={466.4}
+    height={465}
     viewBox="0 0 280 466.4"
     backgroundColor="#f3f3f3"
     foregroundColor="#e8e8e8"
@@ -14,7 +15,7 @@ const PizzaSkeleton = () => (
     <rect x="10" y="310" rx="10" ry="10" width="260" height="88" />
     <rect x="10" y="420" rx="10" ry="10" width="100" height="35" />
     <rect x="120" y="415" rx="24" ry="24" width="150" height="50" />
-    <circle cx="140" cy="125" r="125" />
+    <circle cx="135" cy="120" r="120" />
   </ContentLoader>
 );
 
