@@ -15,13 +15,22 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+
+  @media (max-width: 645px) {
+    width: calc(100vw - 30px) !important;
+    margin: 15px auto !important;
+  }
 }
 
 .content {
   padding: 40px 0;
 
   &__title {
-    margin: 35px 0;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 50px;
+    margin-top: 60px
+    
   }
 
   &__items {
