@@ -57,7 +57,7 @@ body {
         }
       }
       .sort  {
-        max-width: 30%;
+        width: 30%;
         b {
           display: none;
         }
@@ -66,15 +66,18 @@ body {
 
     @media (max-width: 577px) {
       flex-direction: column-reverse;
-
+      
       .categories {
         margin-top: 20px;
         width: 100%;
       }
 
       .sort {
-        width: 100% !important; 
-        
+        width: 100%; 
+        &__label {
+          width: 100%; 
+          justify-content: center !important;
+        }
       }
     }
   }
