@@ -1,7 +1,6 @@
 import React from "react";
 
-export const Categories = () => {
-  const [index, setActiveIndx] = React.useState(0);
+export const Categories = ({ value, onClickCategory }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -11,12 +10,8 @@ export const Categories = () => {
     "Закрытые",
   ];
 
-  const onChange = (indx) => {
-    setActiveIndx(indx);
-  };
-
   const addClass = (indx) => {
-    if (index === indx) return "active";
+    if (value === indx) return "active";
     else return null;
   };
 
@@ -27,7 +22,7 @@ export const Categories = () => {
           return (
             <li
               className={addClass(indx)}
-              onClick={() => onChange(indx)}
+              onClick={() => onClickCategory(indx)}
               key={indx}
             >
               {name}

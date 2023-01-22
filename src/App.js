@@ -7,10 +7,19 @@ import PizzaDetails from "./pages/PizzaDetails";
 import NoutFound from "./pages/NoutFound";
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState("");
   return (
     <Routes>
-      <Route path="/" element={<MainLayouts />}>
-        <Route index element={<Home />} />
+      <Route
+        path="/"
+        element={
+          <MainLayouts
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        }
+      >
+        <Route index element={<Home searchValue={searchValue} />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pizza/:id" element={<PizzaDetails />} />
         <Route path="*" element={<NoutFound />} />

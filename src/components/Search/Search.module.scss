@@ -1,0 +1,34 @@
+.root {
+  width: 45%;
+  position: relative;
+}
+
+.searchIcon {
+  height: 22px;
+  left: 14px;
+  opacity: .3;
+  position: absolute;
+  top: 12px;
+  width: 22px;
+}
+
+.input {
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 12px 20px 12px 42px;
+  width: 100%;
+}
+
+.clearIcon {
+  cursor: pointer;
+  height: 18px;
+  opacity: .3;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 18px;
+  &:hover {
+    opacity: .8;
+  }
+}
