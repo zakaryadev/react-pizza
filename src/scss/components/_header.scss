@@ -26,7 +26,21 @@
     img {
       margin-right: 15px;
     }
+<<<<<<< HEAD
     
+=======
+    @media (max-width: 645px) {
+      display: inline-flex;
+      img {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+>>>>>>> 61920ce78485da0a97ee812829f58865187489b4
     h1 {
       color: #181818;
       font-size: 24px;
