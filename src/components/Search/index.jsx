@@ -1,10 +1,25 @@
 import React from "react";
+import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
-import { SearchContext } from "../../layouts/MainLayouts";
+import {useSelector, useDispatch} from "react-redux";
+import {setSearchValue} from "../../redux/slices/filterSlice";
 
 const Search = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
-
+  const [value, setValue] = React.useState('');
+  const {searchValue} = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+  const inputRef = React.useRef(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 250), []
+  );
+  const onChangeInput = (e) => {
+    updateSearchValue(e.target.value)
+    setValue(e.target.value)
+  }
+  
   return (
     <div className={styles.root}>
       <svg
@@ -42,19 +57,25 @@ const Search = () => {
         ></line>
       </svg>
       <input
+        ref={inputRef}
         className={styles.input}
         placeholder="Поиск пиццы..."
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={value}
+        onChange={onChangeInput}
       />
       {searchValue.length > 0 && (
         <svg
           className={styles.clearIcon}
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
-          onClick={() => setSearchValue("")}
+          onClick={() => {
+            dispatch(setSearchValue(""));
+            setValue("");
+            inputRef.current.focus();
+          }}
         >
-          <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"></path>
+          <path
+            d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"></path>
         </svg>
       )}
     </div>
