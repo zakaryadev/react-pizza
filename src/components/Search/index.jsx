@@ -60,7 +60,7 @@ const Search = () => {
         ref={inputRef}
         className={styles.input}
         placeholder="Поиск пиццы..."
-        value={searchValue}
+        value={value}
         onChange={onChangeInput}
       />
       {searchValue.length > 0 && (
