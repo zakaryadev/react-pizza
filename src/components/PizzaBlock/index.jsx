@@ -2,30 +2,16 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
 
-export const PizzaBlock = ({
-  id,
-  imageUrl,
-  title,
-  types,
-  sizes,
-  price,
-}) => {
+export const PizzaBlock = ({ id, imageUrl, title, types, sizes, price }) => {
   const dispatch = useDispatch();
   const typeNames = ["тонкое", "традиционное"];
   const [count, setCount] = React.useState(0);
   const [typeIndex, setActiveType] = React.useState(0);
   const [indexSize, setActiveSize] = React.useState(0);
-  const item = {
-    id,
-    imageUrl,
-    title,
-    type: typeNames[typeIndex],
-    size: sizes[indexSize],
-    price,
-  };
+
   const onAdd = () => {
     setCount(count + 1);
-    dispatch(addItem(item));
+    dispatch(addItem({ id, imageUrl, title, types, sizes, price }));
   };
 
   const onAddType = (indx) => {
@@ -48,7 +34,8 @@ export const PizzaBlock = ({
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {types.map((value, index) => {
+            {
+              types.map((value, index) => {
               return (
                 <li
                   key={value}
@@ -58,7 +45,8 @@ export const PizzaBlock = ({
                   {typeNames[value]}
                 </li>
               );
-            })}
+              })
+            }
           </ul>
           <ul>
             {sizes.map((value, index) => {
