@@ -11,7 +11,16 @@ export const PizzaBlock = ({ id, imageUrl, title, types, sizes, price }) => {
 
   const onAdd = () => {
     setCount(count + 1);
-    dispatch(addItem({ id, imageUrl, title, types, sizes, price }));
+    dispatch(
+      addItem({
+        id,
+        imageUrl,
+        title,
+        type: typeNames[typeIndex],
+        size: sizes[indexSize],
+        price,
+      })
+    );
   };
 
   const onAddType = (indx) => {
@@ -34,8 +43,7 @@ export const PizzaBlock = ({ id, imageUrl, title, types, sizes, price }) => {
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {
-              types.map((value, index) => {
+            {types.map((value, index) => {
               return (
                 <li
                   key={value}
@@ -45,8 +53,7 @@ export const PizzaBlock = ({ id, imageUrl, title, types, sizes, price }) => {
                   {typeNames[value]}
                 </li>
               );
-              })
-            }
+            })}
           </ul>
           <ul>
             {sizes.map((value, index) => {
