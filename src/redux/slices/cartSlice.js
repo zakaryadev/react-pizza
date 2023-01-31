@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   totalPrice: 0,
@@ -9,12 +10,6 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // addItem(state, action) {
-    //   state.items.push(action.payload);
-    //   state.totalPrice = state.items.reduce((sum, obj) => {
-    //     return obj.price + sum;
-    //   }, 0);
-    // },
     addItem(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
       if (findItem) {
@@ -54,11 +49,10 @@ const cartSlice = createSlice({
         return obj.price * obj.count + sum;
       }, 0);
     },
-    clearItems(state, action) {
+    clearItems(state) {
       state.items = [];
       state.totalPrice = 0;
     },
-    setTotalPrice(state, action) {},
   },
 });
 
