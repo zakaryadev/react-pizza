@@ -32,27 +32,22 @@ const Home = () => {
     const category = categoryId > 0 ? `&category=${categoryId - 1}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    try {
-      dispatch(
-        fetchPizzas({
-          order,
-          sortBy,
-          category,
-          search,
-          currentPage,
-        })
-      );
+    dispatch(
+      fetchPizzas({
+        order,
+        sortBy,
+        category,
+        search,
+        currentPage,
+      })
+    );
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    } catch (err) {
-      console.log("ERROR", err.message);
-      error(status);
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
-
+  if (status === "error") error("Error an occured");
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -111,9 +106,21 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {status === "success" ? pizzas : skeleton}
-      </div>
+      {status === "error" ? (
+        <div className="cart cart--empty error">
+          <h2>
+            Ошибка при <br /> получений пиццы 😑
+          </h2>
+          <p>
+            Произошла непредвиденная ошибка.
+            <br /> Пожалуйста, попробуйте позже.
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "success" ? pizzas : skeleton}
+        </div>
+      )}
       <Pagination />
     </div>
   );

@@ -144,13 +144,15 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-
+  &.error {
+    padding: 30px !important;
+  }
 
   &__items {
     display: flex;
     flex-direction: column;
   }
-
+  
   .content__title {
     display: flex;
     align-items: center;
