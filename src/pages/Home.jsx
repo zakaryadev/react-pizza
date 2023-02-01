@@ -10,16 +10,21 @@ import { useNavigate } from "react-router-dom";
 import { setFilters } from "../redux/slices/filterSlice";
 import { sortList } from "../components/Sort";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { toast, ToastContainer } from "react-toastify";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
+
   const { categoryId, sort, searchValue, currentPage } = useSelector(
     (state) => state.filter
   );
-  const { items, loaded } = useSelector((state) => state.pizzas);
+  const { items, status } = useSelector((state) => state.pizzas);
+
+  const error = (txt) => toast.error(txt);
 
   const getPizzas = async () => {
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
@@ -42,8 +47,9 @@ const Home = () => {
         top: 0,
         behavior: "smooth",
       });
-    } catch (error) {
-      console.log("ERROR", error.message);
+    } catch (err) {
+      console.log("ERROR", err.message);
+      error(status);
     }
   };
 
@@ -99,12 +105,15 @@ const Home = () => {
 
   return (
     <div className="container">
+      <ToastContainer autoClose={500} theme="light" />
       <div className="content__top">
         <Categories />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{loaded ? pizzas : skeleton}</div>
+      <div className="content__items">
+        {status === "success" ? pizzas : skeleton}
+      </div>
       <Pagination />
     </div>
   );
