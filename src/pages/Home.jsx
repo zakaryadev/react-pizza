@@ -8,22 +8,20 @@ import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFilters } from "../redux/slices/filterSlice";
-import { fetchPizzas, setLoaded } from "../redux/slices/pizzaSlice";
 import { sortList } from "../components/Sort";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-
   const { categoryId, sort, searchValue, currentPage } = useSelector(
     (state) => state.filter
   );
   const { items, loaded } = useSelector((state) => state.pizzas);
 
   const getPizzas = async () => {
-    dispatch(setLoaded(false));
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sort.sortProperty.replace("-", "");
     const category = categoryId > 0 ? `&category=${categoryId - 1}` : "";
@@ -46,8 +44,6 @@ const Home = () => {
       });
     } catch (error) {
       console.log("ERROR", error.message);
-    } finally {
-      dispatch(setLoaded(true));
     }
   };
 
@@ -89,9 +85,11 @@ const Home = () => {
     if (!isSearch.current) {
       getPizzas();
     }
+
     isSearch.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, sort.sortProperty, currentPage, searchValue]);
+
   const pizzas = items.map((item, index) => {
     return <PizzaBlock {...item} key={index} />;
   });
