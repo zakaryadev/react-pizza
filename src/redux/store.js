@@ -10,3 +10,5 @@ export const store = configureStore({
     pizzas,
   },
 });
+
+export const SelectState = (state, selector) => state.selector;

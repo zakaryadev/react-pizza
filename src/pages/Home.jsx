@@ -24,7 +24,14 @@ const Home = () => {
   );
   const { items, status } = useSelector((state) => state.pizzas);
 
-  const error = (txt) => toast.error(txt);
+  const error = (txt) =>
+    toast.error(txt, {
+      position: "bottom-right",
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  if (status === "error") error("Error an occured");
 
   const getPizzas = async () => {
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
@@ -47,7 +54,7 @@ const Home = () => {
       behavior: "smooth",
     });
   };
-  if (status === "error") error("Error an occured");
+
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -67,16 +74,14 @@ const Home = () => {
 
   React.useEffect(() => {
     if (isMounted.current) {
-      const queryString = qs.stringify(
-        {
-          search: searchValue,
-          categoryId,
-          sortProperty: sort.sortProperty,
-          currentPage,
-        },
-        { addQueryPrefix: true }
-      );
-      navigate(`${queryString}`);
+      const queryString = qs.stringify({
+        search: searchValue,
+        categoryId,
+        sortProperty: sort.sortProperty,
+        currentPage,
+      });
+      // console.log();
+      navigate(`?${queryString}`);
     }
     isMounted.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,6 +99,7 @@ const Home = () => {
   const pizzas = items.map((item, index) => {
     return <PizzaBlock {...item} key={index} />;
   });
+
   const skeleton = [...new Array(4)].map((_, indx) => {
     return <PizzaSkeleton key={indx} />;
   });

@@ -56,6 +56,7 @@ const cartSlice = createSlice({
 });
 
 export const selectCart = (state) => state.cart;
+export const selectCartItemById = (state) => state.cart;
 
 export const {
   addItem,
@@ -65,4 +66,5 @@ export const {
   plusItem,
   minusItem,
 } = cartSlice.actions;
+
 export default cartSlice.reducer;
